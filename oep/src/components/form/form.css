@@ -1,0 +1,52 @@
+.form {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: #D8315B;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px #3E92CC;
+    border-radius: 10px;
+}
+
+.form h3{
+    color: white;
+    text-align: center;
+    padding: 15px;
+    padding-top: 0px;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}
+
+.form input::placeholder {
+    color:white;
+    opacity: 0.7;
+}
+
+.form a {
+    color:white;
+    float:right;
+    padding: auto;
+}
+.form a:link {
+    color: white;
+    text-decoration: none;
+}
+
+.form a:hover{
+    color:hotpink;
+    text-decoration: underline;
+}
