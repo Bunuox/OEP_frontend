@@ -8,16 +8,16 @@ import { BsLock } from 'react-icons/bs'
 function LoginPage() {
   return (
     <body>
-    <OepBrand/>
-    <LoginForm>
-      <h3>Giriş yap</h3>
-      <Input type={'text'} placeholder={'Email'} />
-      <Input type={'password'} placeholder={'Şifre'} />
-      <Button className={'button-secondary'}>Giriş</Button>
-      <a href='#'>Kayıt ol</a>
-      <br></br>
-      <a href="#">Şifremi Unuttum<BsLock/></a>
-    </LoginForm>
+      <OepBrand />
+      <LoginForm>
+        <h3>Giriş yap</h3>
+        <Input id='user_mail' type={'text'} placeholder={'Email'} />
+        <Input id='user_password' type={'password'} placeholder={'Şifre'} />
+        <Button className={'button-secondary'}>Giriş</Button>
+        <a href='/RegisterPage'>Kayıt ol</a>
+        <br></br>
+        <a href="#">Şifremi Unuttum<BsLock /></a>
+      </LoginForm>
     </body>
   )
 }
