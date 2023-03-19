@@ -3,7 +3,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 400px;
+    width: 40%;
     padding: 40px;
     transform: translate(-50%, -50%);
     background: #D8315B;
@@ -46,7 +46,28 @@
     text-decoration: none;
 }
 
+label {
+    display: inline-block;
+    color:white;
+    padding: 25px 0;
+}
+   
+.form-row {
+     display: flex;
+}
+   
+.form-group {
+     padding: 5px;
+     width: 50%;
+     
+}
+
 .form a:hover{
     color:hotpink;
     text-decoration: underline;
+}
+
+
+.form option {
+    color:black;
 }
