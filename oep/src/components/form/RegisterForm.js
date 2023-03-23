@@ -1,9 +1,9 @@
 import React from 'react'
 import './form.css'
 
-function RegisterForm({children}) {
+function RegisterForm({children, }) {
   return (
-    <div className="form">{ children }</div>
+    <div className="form">{ children}</div>
   )
 }
 

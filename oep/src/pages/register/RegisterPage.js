@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/esm/Container'
 import OepBrand from '../../components/Brand/OepBrand'
 import Button from '../../components/button/Button'
@@ -7,41 +7,83 @@ import Input from '../../components/input/Input'
 import { Row, Col, Stack } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 
-const handleClick = () => {
-    alert('Şifre, hesabınız onaylandıktan sonra mail adresinize iletilecektir.');
-};
-
 function RegisterPage() {
+
+    const [fName, setFName] = useState("");
+    const [lName, setLName] = useState("");
+    const [idNo, setIdNo] = useState("");
+
+    let handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let res = await fetch("https://dummy.restapiexample.com/api/v1/create", {
+                method: "POST",
+                body: JSON.stringify({
+                    name: fName,    
+                    salary: lName,
+                    age: idNo,
+                }),
+            });
+            console.log(res)
+            let resJson = await res.json();
+            if (res.status === 200) {
+                setFName("");
+                setLName("");
+                console.log("başarılı")
+            } else {
+                console.log("başarısız")
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
-        <body>
-            <OepBrand></OepBrand>
             <Container fluid="md">
                 <RegisterForm>
                     <h3>Kayıt ol</h3>
                     <div>
                         <Row>
                             <Col>
-                                <Input id="fName" type={"text"} placeholder={"İsim"}></Input>
+                                <Input
+                                    id="fName"
+                                    type={"text"}
+                                    value={fName}
+                                    onChange={(e) => setFName(e.target.value)}
+                                    placeholder={"İsim"}
+                                ></Input>
                             </Col>
                             <Col>
-                                <Input id="idNo" type={"text"} placeholder={"T.C. Kimlik Numarası"}></Input>
+                                <Input
+                                    id="idNo"
+                                    type={"text"}
+                                    value={idNo}
+                                    onChange={(e) => setIdNo(e.target.value)}
+                                    placeholder={"T.C. Kimlik Numarası"}
+                                ></Input>
                             </Col>
                         </Row>
                         <Row>
                             <Col>
-                                <Input id="lName" type={"text"} placeholder={"Soyisim"}></Input>
+                                <Input
+                                    id="lName"
+                                    type={"text"}
+                                    value={lName}
+                                    onChange={(e) => setLName(e.target.value)}
+                                    placeholder={"Soyisim"}
+                                ></Input>
                             </Col>
                             <Col>
-                            <Stack direction='horizontal'>
-                                <Col>
-                                    <label>Doğum tarihi</label>
-                                </Col>
-                                <Col>
+                                <Stack direction='horizontal'>
                                     <Col>
-                                        <Input id="dogumTarihi" type={"date"} value="" placeholder={"dd-mm-yyyy"}></Input>
+                                        <label>Doğum tarihi</label>
                                     </Col>
-                                </Col>
-                                </Stack>   
+                                    <Col>
+                                        <Col>
+                                            <Input id="birthDate" type={"date"} value="" placeholder={"dd-mm-yyyy"}></Input>
+                                        </Col>
+                                    </Col>
+                                </Stack>
                             </Col>
                         </Row>
                         <Row>
@@ -51,7 +93,7 @@ function RegisterPage() {
                             <Col>
                                 <Stack direction="horizontal">
                                     <Col xs={4}>
-                                        <label for="cinsiyet">Cinsiyet</label>
+                                        <label htmlFor="cinsiyet">Cinsiyet</label>
                                     </Col>
                                     <Col xs={8}>
                                         <Form.Select name="cinsiyet" id="cinsiyet" size="sm">
@@ -65,10 +107,10 @@ function RegisterPage() {
                         </Row>
                         <Row>
                             <Col>
-                                <Button 
-                                type="submit"
-                                className={'button-secondary'}
-                                onClick={handleClick}
+                                <Button
+                                    type = "submit"
+                                    onClick={handleSubmit}
+                                    className={"button-secondary"}
                                 >Kayıt ol
                                 </Button>
                             </Col>
@@ -76,7 +118,6 @@ function RegisterPage() {
                     </div>
                 </RegisterForm>
             </Container>
-        </body>
     )
 }
 
