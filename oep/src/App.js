@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginPage from './pages/login/LoginPage'
-import './app.css'
+import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RegisterPage from './pages/register/RegisterPage';
 

@@ -12,19 +12,29 @@ function RegisterPage() {
     const [fName, setFName] = useState("");
     const [lName, setLName] = useState("");
     const [idNo, setIdNo] = useState("");
+    const [birthDate, setBirthDate] = useState(new Date());
 
     let handleSubmit = async (e) => {
+        console.log("firstName => " + fName);
+        console.log("lastName => " + lName);
+        console.log("tcKimlikNo => " + idNo);
+        console.log("dogumTarihi => " + birthDate);
+        console.log("dogumTarihi => " + birthDate.toISOString());
         e.preventDefault();
         try {
-            let res = await fetch("https://dummy.restapiexample.com/api/v1/create", {
+            let res = await fetch("http://localhost:8081/student/createStudent", {
                 method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify({
-                    name: fName,    
-                    salary: lName,
-                    age: idNo,
+                    firstName: fName,     
+                    lastName: lName,
+                    identificationNo: idNo,  
+                    dateOfBirth: birthDate.toISOString()
                 }),
             });
-            console.log(res)
+            console.log(fName);
             let resJson = await res.json();
             if (res.status === 200) {
                 setFName("");
@@ -40,7 +50,7 @@ function RegisterPage() {
 
     return (
             <Container fluid="md">
-                <RegisterForm>
+                <RegisterForm onSubmit={handleSubmit}>
                     <h3>Kayıt ol</h3>
                     <div>
                         <Row>
@@ -49,7 +59,9 @@ function RegisterPage() {
                                     id="fName"
                                     type={"text"}
                                     value={fName}
-                                    onChange={(e) => setFName(e.target.value)}
+                                    onChange={
+                                        (e) =>{setFName(e.target.value);}
+                                    }
                                     placeholder={"İsim"}
                                 ></Input>
                             </Col>
@@ -80,7 +92,11 @@ function RegisterPage() {
                                     </Col>
                                     <Col>
                                         <Col>
-                                            <Input id="birthDate" type={"date"} value="" placeholder={"dd-mm-yyyy"}></Input>
+                                            <Input id="birthDate" 
+                                            type={"date"} 
+                                            value={birthDate}
+                                            onChange={(e) => setBirthDate(new Date(e.target.value))}
+                                            placeholder={"dd-mm-yyyy"}></Input>
                                         </Col>
                                     </Col>
                                 </Stack>
