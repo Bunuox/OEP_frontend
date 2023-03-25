@@ -6,6 +6,7 @@ import RegisterForm from '../../components/form/RegisterForm'
 import Input from '../../components/input/Input'
 import { Row, Col, Stack } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
+import StudentNavbar from '../../components/navbar/StudentNavbar'
 
 const handleClick = () => {
     alert('Şifre, hesabınız onaylandıktan sonra mail adresinize iletilecektir.');
@@ -14,7 +15,7 @@ const handleClick = () => {
 function RegisterPage() {
     return (
         <body>
-            <OepBrand></OepBrand>
+            <StudentNavbar></StudentNavbar>
             <Container fluid="md">
                 <RegisterForm>
                     <h3>Kayıt ol</h3>
