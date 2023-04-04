@@ -8,7 +8,9 @@ import { Row, Col, Stack } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
 const handleClick = () => {
-  alert("Şifre, hesabınız onaylandıktan sonra mail adresinize iletilecektir.");
+  console.log(
+    "Şifre, hesabınız onaylandıktan sonra mail adresinize iletilecektir."
+  );
 };
 
 function RegisterPage() {
