@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 function StudentMainPage() {
   return (
     <Container>
+      <p>Main page</p>
       <Row>
         <Col>
           <Table striped bordered hover>
@@ -70,9 +71,6 @@ function StudentMainPage() {
             </tbody>
           </Table>
         </Col>
-      </Row>
-      <Row>
-        <p>Text</p>
       </Row>
     </Container>
   );
