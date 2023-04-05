@@ -15,7 +15,6 @@ function LoginPage() {
 
   const loginHandle = async (e) => {
     e.preventDefault();
-    console.log(email)
     try {
       let res = await fetch("http://localhost:8081/student/findStudent", {
         method: "POST",
@@ -51,7 +50,7 @@ function LoginPage() {
           type={"text"}
           placeholder={"Email"}
           onChange={(e) => {
-            setEmail("text");
+            setEmail(e.target.value);
           }}
         />
         <Input
@@ -59,7 +58,7 @@ function LoginPage() {
           type={"password"}
           placeholder={"Şifre"}
           onChange={(e) => {
-            setPassword("text");
+            setPassword(e.target.value);
           }}
         />
         <Button
