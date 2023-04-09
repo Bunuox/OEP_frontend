@@ -1,21 +1,36 @@
 import React from "react";
 import StudentPageTemplate from "../../pages/pageTemplate/StudentPageTemplate";
-import LoginPage from "../../pages/login/LoginPage";
+import StudentLoginPage from "../../pages/login/StudentLoginPage";
 import RegisterPage from "../../pages/register/RegisterPage";
 import Student from "../../pages/student";
 import StudentMainPage from "../../pages/student/StudentMainPage";
 import StudentExamsPage from "../../pages/student/StudentExamsPage";
 import Page404 from "../../pages/Page404";
 import StudentPrivateRoute from "./StudentPrivateRoute";
+import InstructorLoginPage from "../../pages/login/InstructorLoginPage";
+import InstructorPageTemplate from "../../pages/pageTemplate/InstructorPageTemplate";
+import InstructorPrivateRoute from "./InstructorPrivateRoute";
+import Instructor from "../../pages/instructor";
 
 const routes = [
   {
     path: "/student/login",
-    element: <LoginPage />,
+    element: <StudentLoginPage />,
   },
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+  {
+    path: "/instructor",
+    element: <InstructorPageTemplate/>,
+    instructorAuth: true,
+    children: [
+      {
+        index:true,
+        element: <Instructor/>
+      }
+    ]
   },
   {
     path: "/student",
@@ -40,6 +55,10 @@ const routes = [
     ],
   },
   {
+    path: "instructor/login",
+    element: <InstructorLoginPage />,
+  },
+  {
     path: "*",
     element: <Page404 />,
   },
@@ -51,6 +70,11 @@ const authMap = (routes) =>
       route.element = (
         <StudentPrivateRoute>{route.element}</StudentPrivateRoute>
       );
+    }
+    if(route.instructorAuth) {
+      route.element = (
+        <InstructorPrivateRoute>{route.element}</InstructorPrivateRoute>
+      )
     }
     if (route.children) {
       route.children = authMap(route.children);

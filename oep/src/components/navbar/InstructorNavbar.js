@@ -4,20 +4,20 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
-import StudentOffcanvas from "../offcanvas/StudentOffcanvas";
-import { Context } from "../context/AuthContext";
+import InstructorOffCanvas from "../offcanvas/InstructorOffcanvas"
+import { InstructorContext } from "../context/AuthContext";
 
-function StudentNavbar() {
-  const { setUser } = useContext(Context);
+function InstructorNavbar() {
+  const { setInstructor } = useContext(InstructorContext);
   const handleLogout = () => {
-    setUser(false);
+    setInstructor(false);
   };
 
   return (
-    <Navbar bg="light" expand="xl">
+    <Navbar bg="dark" expand="xl">
       <Container>
         <Nav>
-          <StudentOffcanvas />
+          <InstructorOffCanvas />
           <Nav></Nav>
         </Nav>
         <Nav className="justify-content-end">
@@ -39,4 +39,4 @@ function StudentNavbar() {
   );
 }
 
-export default StudentNavbar;
+export default InstructorNavbar;
