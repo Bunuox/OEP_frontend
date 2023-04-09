@@ -1,0 +1,13 @@
+.form-label{
+    color: black;
+}
+.alert {
+    position: fixed;
+    bottom: 5px;
+    left:2%;
+    width: 96%;
+}
+
+.alert-heading{
+    font-size: medium;
+}

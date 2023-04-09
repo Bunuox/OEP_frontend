@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import Input from "../../components/input/Input";
 import Button from "../../components/button/Button";
 import LoginForm from "../../components/form/LoginForm";
@@ -9,7 +9,7 @@ import { InstructorContext } from "../../components/context/AuthContext";
 
 function InstructorLoginPage() {
   const navigate = useNavigate();
-  const { instructor, setInstructor } = useContext(InstructorContext);
+  const { setInstructor } = useContext(InstructorContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,8 +29,8 @@ function InstructorLoginPage() {
       let resJson = await res.json();
       if (res.status === 200) {
         setInstructor({
-          instructorId: resJson.instructorId
-        })
+          instructorId: resJson.instructorId,
+        });
         navigate("/instructor");
       } else {
         console.log("başarısız");

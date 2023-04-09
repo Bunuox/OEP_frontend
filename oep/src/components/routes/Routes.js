@@ -11,6 +11,8 @@ import InstructorLoginPage from "../../pages/login/InstructorLoginPage";
 import InstructorPageTemplate from "../../pages/pageTemplate/InstructorPageTemplate";
 import InstructorPrivateRoute from "./InstructorPrivateRoute";
 import Instructor from "../../pages/instructor";
+import Courses from "../../pages/instructor/Course/Courses";
+import CoursePageTemplate from "../../pages/pageTemplate/CoursePageTemplate";
 
 const routes = [
   {
@@ -23,14 +25,25 @@ const routes = [
   },
   {
     path: "/instructor",
-    element: <InstructorPageTemplate/>,
+    element: <InstructorPageTemplate />,
     instructorAuth: true,
     children: [
       {
-        index:true,
-        element: <Instructor/>
-      }
-    ]
+        index: true,
+        element: <Instructor />,
+      },
+      {
+        path: "courses",
+        element: <CoursePageTemplate />,
+        instructorAuth: true,
+        children: [
+          {
+            index: true,
+            element: <Courses />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/student",
@@ -71,10 +84,10 @@ const authMap = (routes) =>
         <StudentPrivateRoute>{route.element}</StudentPrivateRoute>
       );
     }
-    if(route.instructorAuth) {
+    if (route.instructorAuth) {
       route.element = (
         <InstructorPrivateRoute>{route.element}</InstructorPrivateRoute>
-      )
+      );
     }
     if (route.children) {
       route.children = authMap(route.children);
