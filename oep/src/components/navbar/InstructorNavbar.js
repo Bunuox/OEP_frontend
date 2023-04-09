@@ -5,7 +5,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import InstructorOffCanvas from "../offcanvas/InstructorOffcanvas"
-import { InstructorContext } from "../context/AuthStudentContext";
+import { InstructorContext } from "../context/AuthContext";
 
 function InstructorNavbar() {
   const { setInstructor } = useContext(InstructorContext);

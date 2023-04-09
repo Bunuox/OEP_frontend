@@ -4,7 +4,7 @@ import Button from "../../components/button/Button";
 import LoginForm from "../../components/form/LoginForm";
 import OepBrand from "../../components/Brand/OepBrand";
 import { BsLock } from "react-icons/bs";
-import { Context } from "../../components/context/AuthStudentContext";
+import { Context } from "../../components/context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function LoginPage() {

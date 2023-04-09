@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
-import { InstructorContext } from "../context/AuthStudentContext";
+import { InstructorContext } from "../context/AuthContext";
 
 function InstructorPrivateRoute({ children }) {
   //If instructor is logged in redirect to instructor pages
