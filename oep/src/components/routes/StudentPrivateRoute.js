@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Context } from "../context/AuthStudentContext";
+import { Context } from "../context/AuthContext";
 import { Navigate } from "react-router-dom";
 
 function StudentPrivateRoute({ children }) {

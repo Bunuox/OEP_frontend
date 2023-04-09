@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import { createContext, useState , useEffect } from "react";
 import React from "react";
 
 export const Context = createContext();

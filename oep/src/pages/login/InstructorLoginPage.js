@@ -5,7 +5,7 @@ import LoginForm from "../../components/form/LoginForm";
 import OepBrand from "../../components/Brand/OepBrand";
 import { BsLock } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-import { InstructorContext } from "../../components/context/AuthStudentContext";
+import { InstructorContext } from "../../components/context/AuthContext";
 
 function InstructorLoginPage() {
   const navigate = useNavigate();
