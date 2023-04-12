@@ -1,16 +1,27 @@
 import React from "react";
-import { Card } from "react-bootstrap";
-function CourseCard({ courseId, courseTitle, courseDescription }) {
+import { Card, Col, Row } from "react-bootstrap";
+function CourseCard({ courses }) {
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Body>
-        <Card.Title>{courseId}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {courseDescription}
-        </Card.Subtitle>
-        <Card.Text>Açıklama</Card.Text>
-      </Card.Body>
-    </Card>
+    <Row>
+      {courses.map((course) => (
+        <Col sm={4} key={course.courseId}>
+          <Card
+            className="card"
+            style={{ width: "20rem" }}
+            bg={"success"}
+            text={"white"}
+          >
+            <Card.Header as="h5">{course.courseId}</Card.Header>
+            <Card.Body>
+              <Card.Title className="d-flex flex-column justify-content-end align-items-center">
+                {course.courseName}
+              </Card.Title>
+              <Card.Text>{course.description}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
   );
 }
 
