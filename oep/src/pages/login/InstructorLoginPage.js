@@ -30,6 +30,7 @@ function InstructorLoginPage() {
       if (res.status === 200) {
         setInstructor({
           instructorId: resJson.instructorId,
+          email: resJson.email,
         });
         navigate("/instructor");
       } else {
