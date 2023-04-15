@@ -6,32 +6,31 @@ import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
 import StudentOffcanvas from "../offcanvas/StudentOffcanvas";
 import { Context } from "../context/AuthContext";
+import "./navbar.css";
 
 function StudentNavbar() {
-  const { setUser } = useContext(Context);
+  const { user, setUser } = useContext(Context);
   const handleLogout = () => {
     setUser(false);
   };
 
   return (
-    <Navbar bg="light" expand="xl">
+    <Navbar className="studentNavBar" expand="xl">
       <Container>
         <Nav>
           <StudentOffcanvas />
-          <Nav></Nav>
         </Nav>
         <Nav className="justify-content-end">
-          <Image width="50" roundedCircle="true" src="./img1.jpeg"></Image>
+          <Image width="50" roundedCircle="true" src="/img1.jpeg"></Image>
           <NavDropdown
-            title="Bünyamin"
+            title={user.firstName}
             id="basic-nav-dropdown"
             className="justify-content-end"
           >
-            <NavDropdown.Item>Action</NavDropdown.Item>
-            <NavDropdown.Item>Action</NavDropdown.Item>
-            <NavDropdown.Item onClick={handleLogout}>
-              Çıkış yap
-            </NavDropdown.Item>
+            <p className="nav-p">Action</p>
+            <p className="nav-p" onClick={handleLogout}>
+              Çıkış Yap
+            </p>
           </NavDropdown>
         </Nav>
       </Container>

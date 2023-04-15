@@ -1,7 +1,9 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { BsBookHalf } from "react-icons/bs";
-function CourseCard({ courses }) {
+import "./courses.css";
+
+function StudentCourseCard({ courses }) {
   return (
     <Row>
       {courses.map((course) => (
@@ -9,13 +11,13 @@ function CourseCard({ courses }) {
           <Card
             className="card"
             style={{ width: "20rem" }}
-            bg={"Light"}
+            bg={"light"}
             text={"black"}
           >
             <Card.Header
               as="h5"
               className="d-flex flex-column align-items-center"
-              style={{ backgroundColor: "#4b74f4" }}
+              style={{ backgroundColor: "#e9444a" }}
             >
               <BsBookHalf color="whitesmoke" />
               <div className="card-header-id">Course ID: {course.courseId}</div>
@@ -33,4 +35,4 @@ function CourseCard({ courses }) {
   );
 }
 
-export default CourseCard;
+export default StudentCourseCard;
