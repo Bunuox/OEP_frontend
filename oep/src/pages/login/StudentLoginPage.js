@@ -29,7 +29,8 @@ function LoginPage() {
       let resJson = await res.json();
       if (res.status === 200) {
         setUser({
-          studentId: resJson.studentId,
+          studentId: resJson.student.studentId,
+          firstName: resJson.student.firstName,
         });
         navigate("/student");
       } else {

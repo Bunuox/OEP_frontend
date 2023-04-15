@@ -1,0 +1,24 @@
+.NavBar{
+    background-color:#283d81;
+    color: white!important;
+}
+
+.navbar-nav .nav-item  a:first-child {
+    color: whitesmoke !important;
+
+}
+
+.nav-p {
+    cursor: pointer;
+    margin: auto;
+    padding: 0.7rem;
+}
+
+.nav-p:hover{
+    color:#972b30
+}
+
+.studentNavBar {
+    background-color:#972b30;
+    color: white!important;
+}

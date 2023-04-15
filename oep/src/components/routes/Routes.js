@@ -12,7 +12,7 @@ import InstructorPageTemplate from "../../pages/pageTemplate/InstructorPageTempl
 import InstructorPrivateRoute from "./InstructorPrivateRoute";
 import Instructor from "../../pages/instructor";
 import Courses from "../../pages/instructor/Course/Courses";
-import CoursePageTemplate from "../../pages/pageTemplate/CoursePageTemplate";
+import StudentCoursePage from "../../pages/student/Course/Courses";
 
 const routes = [
   {
@@ -34,14 +34,8 @@ const routes = [
       },
       {
         path: "courses",
-        element: <CoursePageTemplate />,
+        element: <Courses />,
         instructorAuth: true,
-        children: [
-          {
-            index: true,
-            element: <Courses />,
-          },
-        ],
       },
     ],
   },
@@ -63,6 +57,11 @@ const routes = [
       {
         path: "exams",
         element: <StudentExamsPage />,
+        auth: true,
+      },
+      {
+        path: "courses",
+        element: <StudentCoursePage />,
         auth: true,
       },
     ],
