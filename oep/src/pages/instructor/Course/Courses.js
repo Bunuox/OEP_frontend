@@ -39,7 +39,6 @@ function Courses() {
 
   useEffect(() => {
     fetchTeach();
-    console.log(courses);
   }, []);
 
   const saveHandle = async (e) => {
@@ -91,7 +90,7 @@ function Courses() {
   return (
     <Container>
       {courses && <CourseCard courses={courses} />}
-      <Button variant="primary" onClick={handleShow}>
+      <Button style={{ backgroundColor: "#507cff" }} onClick={handleShow}>
         Ders aç
       </Button>
 
@@ -127,7 +126,7 @@ function Courses() {
           <Button variant="secondary" onClick={handleClose}>
             Kapat
           </Button>
-          <Button variant="primary" onClick={saveHandle}>
+          <Button style={{ backgroundColor: "#507cff" }} onClick={saveHandle}>
             Dersi Oluştur
           </Button>
         </Modal.Footer>

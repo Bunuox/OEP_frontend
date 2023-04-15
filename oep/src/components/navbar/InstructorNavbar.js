@@ -4,8 +4,9 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
-import InstructorOffCanvas from "../offcanvas/InstructorOffcanvas"
+import InstructorOffCanvas from "../offcanvas/InstructorOffcanvas";
 import { InstructorContext } from "../context/AuthContext";
+import "./navbar.css";
 
 function InstructorNavbar() {
   const { setInstructor } = useContext(InstructorContext);
@@ -14,24 +15,20 @@ function InstructorNavbar() {
   };
 
   return (
-    <Navbar bg="dark" expand="xl">
+    <Navbar className="NavBar" text={"white"}>
       <Container>
         <Nav>
           <InstructorOffCanvas />
-          <Nav></Nav>
         </Nav>
         <Nav className="justify-content-end">
-          <Image width="50" roundedCircle="true" src="./img1.jpeg"></Image>
+          <Image width="50" roundedCircle="true" src="/img1.jpeg"></Image>
           <NavDropdown
+            className="image-dropdown"
             title="Bünyamin"
             id="basic-nav-dropdown"
-            className="justify-content-end"
           >
-            <NavDropdown.Item>Action</NavDropdown.Item>
-            <NavDropdown.Item>Action</NavDropdown.Item>
-            <NavDropdown.Item onClick={handleLogout}>
-              Çıkış yap
-            </NavDropdown.Item>
+            <p>Action</p>
+            <p onClick={handleLogout}>Çıkış yap</p>
           </NavDropdown>
         </Nav>
       </Container>
