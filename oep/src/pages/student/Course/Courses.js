@@ -1,24 +1,30 @@
 import React, { useContext, useState, useEffect } from "react";
 import {
-  Alert,
   Button,
   Container,
   FormGroup,
   InputGroup,
+  Alert,
 } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import StudentCourseCard from "./StudentCourseCard";
 import { Context } from "../../../components/context/AuthContext";
 import StudentCourseTable from "./StudentCourseTable";
+import CustomAlert from "../../../components/alert/CustomAlert";
 
 function StudentCoursePage() {
   const [show, setShow] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
-  const [courseId, setCourseId] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [alertHeading, setAlertHeading] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const [alertVariant, setAlertVariant] = useState("");
+
+  const [courseId, setCourseId] = useState("");
   const [courses, setCourses] = useState([]);
   const [foundCourse, setFoundCourse] = useState();
+
   const { user } = useContext(Context);
 
   const handleClose = () => {
@@ -65,6 +71,13 @@ function StudentCoursePage() {
         setFoundCourse(resJson);
       }
     } catch (e) {
+      setAlertHeading("Hata");
+      setAlertMessage("Kurs aranırken bir hatayla karşılaşıldı.");
+      setAlertVariant("danger");
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
       console.log(e);
     }
   };
@@ -86,7 +99,13 @@ function StudentCoursePage() {
         setShowPopup(false);
         setShow(false);
         setShowAlert(true);
-        window.location.reload(false);
+        setAlertHeading("success");
+        setAlertMessage("ders başarıyla alındı");
+        setAlertVariant("success");
+        setTimeout(() => {
+          setShowAlert(false);
+        }, 3000);
+        !showAlert && window.location.reload(false);
       }
     } catch (e) {
       console.log(e);
@@ -175,17 +194,15 @@ function StudentCoursePage() {
           </Button>
         </Modal.Footer>
       </Modal>
-
-      <Alert show={showAlert} variant="success" class="alert">
-        <Alert.Heading class="alert-heading">Başarılı</Alert.Heading>
-        <p>Ders başarıyla alındı.</p>
-        <hr />
-        <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowAlert(false)} variant="outline-success">
-            Kapat
-          </Button>
-        </div>
-      </Alert>
+      <div>
+        {showAlert && (
+          <CustomAlert
+            heading={alertHeading}
+            message={alertMessage}
+            variant={alertVariant}
+          />
+        )}
+      </div>
     </Container>
   );
 }
