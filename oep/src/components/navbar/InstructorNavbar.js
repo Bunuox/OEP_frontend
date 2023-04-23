@@ -27,8 +27,10 @@ function InstructorNavbar() {
             title="Bünyamin"
             id="basic-nav-dropdown"
           >
-            <p>Action</p>
-            <p onClick={handleLogout}>Çıkış yap</p>
+            <p className="ins-nav-p">Action</p>
+            <p className="ins-nav-p" onClick={handleLogout}>
+              Çıkış yap
+            </p>
           </NavDropdown>
         </Nav>
       </Container>
