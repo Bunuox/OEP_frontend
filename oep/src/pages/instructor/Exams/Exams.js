@@ -1,13 +1,16 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Container, Button, InputGroup, Col, Dropdown } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { InstructorContext } from "../../../components/context/AuthContext";
+import InstructorExamsList from "./ExamsList";
 
 function InstructorExams() {
   const [showModal, setShowModal] = useState(false);
   const { instructor } = useContext(InstructorContext);
-  const [fetchSemester, setFetchSemester] = useState("2022-2023");
+  const [filterSemester, setFilterSemester] = useState("2023");
+  const [exams, setExams] = useState([]);
+  const [semesterExams, setSemesterExams] = useState([]);
 
   ///// Exam Variables /////
   const [examName, setExamName] = useState("");
@@ -17,25 +20,41 @@ function InstructorExams() {
   const [examAffect, setexamAffect] = useState(0);
   const [examDuration, setExamDuration] = useState(null);
   const [examCourseId, setExamCourseId] = useState(null);
-  const [examSemester, setExamSemester] = useState("2022-2023");
 
   const handleModalClose = () => setShowModal(false);
+
+  async function fetchExams() {
+    let res = await fetch("http://localhost:8081/instructor/instructorExams", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        instructorId: instructor.instructorId,
+      }),
+    });
+    let resJson = await res.json();
+    if (res.status === 200) {
+      console.log(resJson);
+      setExams(resJson);
+      setSemesterExams(
+        resJson.filter((exam) => exam.examDate.includes(filterSemester))
+      );
+    }
+  }
 
   const saveExamHandle = async (e) => {
     e.preventDefault();
     try {
-      let matchCheck = await fetch(
-        "http://localhost:8081/teach/findTeachByCourseId",
-        {
-          method: "post",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify({
-            courseId: examCourseId,
-          }),
-        }
-      )
+      await fetch("http://localhost:8081/teach/findTeachByCourseId", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          courseId: examCourseId,
+        }),
+      })
         .then((response) => response.json())
         .then(async (data) => {
           if (data.instructorId === instructor.instructorId) {
@@ -57,15 +76,27 @@ function InstructorExams() {
             });
             if (res.status === 200) {
               console.log("Sınav başarıyla oluşturuldu.");
+            } else {
+              console.log(res);
             }
           } else {
-            console.log("Kurs başka hocaya ait.");
+            console.log(data.message);
           }
         });
     } catch (e) {
-      console.log(e);
+      console.log("hata meydana geldi :" + e);
     }
   };
+
+  useEffect(() => {
+    fetchExams();
+  }, []);
+
+  useEffect(() => {
+    setSemesterExams(
+      exams.filter((exam) => exam.examDate.includes(filterSemester))
+    );
+  }, filterSemester);
 
   return (
     <Container>
@@ -75,20 +106,31 @@ function InstructorExams() {
         style={{ marginBottom: "3rem" }}
       >
         <Dropdown.Toggle variant="" id="dropdown-basic">
-          {fetchSemester}
+          {filterSemester}
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           <Dropdown.Item
             onClick={() => {
-              setFetchSemester("2022-2023");
+              setFilterSemester("2023");
             }}
             style={{ fontSize: "15px" }}
           >
-            2022-2023
+            2023
+          </Dropdown.Item>
+          <Dropdown.Item
+            onClick={() => {
+              setFilterSemester("2022");
+            }}
+            style={{ fontSize: "15px" }}
+          >
+            2022
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
+
+      {setSemesterExams && <InstructorExamsList exams={semesterExams} />}
+
       <Button
         style={{ backgroundColor: "#507cff" }}
         onClick={() => {
@@ -185,14 +227,6 @@ function InstructorExams() {
                 onChange={(e) => setExamCourseId(e.target.value)}
               />
             </Form.Group>
-
-            <Form.Group className="mb-3" controlId="createExam.examSemester">
-              <Form.Label className="form-label">Sınav Dönemi</Form.Label>
-              <Form.Control
-                type="number"
-                onChange={(e) => setExamCourseId(e.target.value)}
-              />
-            </Form.Group>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -203,7 +237,7 @@ function InstructorExams() {
             style={{ backgroundColor: "#507cff" }}
             onClick={saveExamHandle}
           >
-            Dersi Oluştur
+            Sınavı Oluştur
           </Button>
         </Modal.Footer>
       </Modal>

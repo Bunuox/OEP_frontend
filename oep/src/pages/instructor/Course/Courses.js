@@ -40,12 +40,12 @@ function Courses() {
     let resJson = await res.json();
     if (res.status === 200) {
       console.log(resJson);
+      setCourses(resJson);
       setSemesterCourses(
         resJson.filter((course) =>
           course.courseSemester.includes(fetchSemester)
         )
       );
-      setCourses(resJson);
     }
   }
 
