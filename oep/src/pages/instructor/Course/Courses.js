@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { Alert, Button, Container } from "react-bootstrap";
+import { Alert, Button, Container, Dropdown } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import "./courses.css";
@@ -7,15 +7,22 @@ import CourseCard from "./CourseCard";
 import { InstructorContext } from "../../../components/context/AuthContext";
 
 function Courses() {
+  //Modal variables
   const [show, setShow] = useState(false);
-  const [description, setDescription] = useState("");
-  const [courseName, setCourseName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
-  const { instructor } = useContext(InstructorContext);
-  const [courses, setCourses] = useState([]);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  //Data, context variables
+  const { instructor } = useContext(InstructorContext);
+  const [courses, setCourses] = useState([]);
+  const [semesterCourses, setSemesterCourses] = useState([]);
+  const [fetchSemester, setFetchSemester] = useState("2022-2023");
+
+  //Create course variables
+  const [courseSemester, setCourseSemester] = useState("2022-2023");
+  const [description, setDescription] = useState("");
+  const [courseName, setCourseName] = useState("");
 
   async function fetchTeach() {
     let res = await fetch(
@@ -33,6 +40,11 @@ function Courses() {
     let resJson = await res.json();
     if (res.status === 200) {
       console.log(resJson);
+      setSemesterCourses(
+        resJson.filter((course) =>
+          course.courseSemester.includes(fetchSemester)
+        )
+      );
       setCourses(resJson);
     }
   }
@@ -40,6 +52,12 @@ function Courses() {
   useEffect(() => {
     fetchTeach();
   }, []);
+
+  useEffect(() => {
+    setSemesterCourses(
+      courses.filter((course) => course.courseSemester.includes(fetchSemester))
+    );
+  }, fetchSemester);
 
   const saveHandle = async (e) => {
     e.preventDefault();
@@ -52,6 +70,7 @@ function Courses() {
         body: JSON.stringify({
           description: description,
           courseName: courseName,
+          courseSemester: courseSemester,
         }),
       });
 
@@ -89,7 +108,35 @@ function Courses() {
 
   return (
     <Container>
-      {courses && <CourseCard courses={courses} />}
+      <Dropdown
+        className="inline"
+        align={{ lg: "start" }}
+        style={{ marginBottom: "3rem" }}
+      >
+        <Dropdown.Toggle variant="" id="dropdown-basic">
+          {fetchSemester}
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item
+            style={{ fontSize: "15px" }}
+            onClick={() => {
+              setFetchSemester("2022-2023");
+            }}
+          >
+            2022-2023
+          </Dropdown.Item>
+          <Dropdown.Item
+            style={{ fontSize: "15px" }}
+            onClick={() => {
+              setFetchSemester("2021-2022");
+            }}
+          >
+            2021-2022
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+      {semesterCourses && <CourseCard courses={semesterCourses} />}
       <Button style={{ backgroundColor: "#507cff" }} onClick={handleShow}>
         Ders aç
       </Button>
@@ -119,6 +166,22 @@ function Courses() {
                 rows={3}
                 onChange={(e) => setDescription(e.target.value)}
               />
+            </Form.Group>
+
+            <Form.Group
+              className="mb-3"
+              controlId="createCourse.courseSemester"
+            >
+              <Form.Label className="form-label">Dersin Dönemi</Form.Label>
+              <Form.Select
+                onChange={(e) => {
+                  setCourseSemester(e.target.value);
+                  console.log(courseSemester);
+                }}
+              >
+                <option value="2022-2023">2022-2023</option>
+                <option value="2021-2022">2021-2022</option>
+              </Form.Select>
             </Form.Group>
           </Form>
         </Modal.Body>

@@ -13,6 +13,7 @@ import InstructorPrivateRoute from "./InstructorPrivateRoute";
 import Instructor from "../../pages/instructor";
 import Courses from "../../pages/instructor/Course/Courses";
 import StudentCoursePage from "../../pages/student/Course/Courses";
+import InstructorExams from "../../pages/instructor/Exams/Exams";
 
 const routes = [
   {
@@ -35,6 +36,11 @@ const routes = [
       {
         path: "courses",
         element: <Courses />,
+        instructorAuth: true,
+      },
+      {
+        path: "exams",
+        element: <InstructorExams />,
         instructorAuth: true,
       },
     ],
