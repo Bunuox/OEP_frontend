@@ -14,6 +14,8 @@ import Instructor from "../../pages/instructor";
 import Courses from "../../pages/instructor/Course/Courses";
 import StudentCoursePage from "../../pages/student/Course/Courses";
 import InstructorExams from "../../pages/instructor/Exams/Exams";
+import InstructorExamDetails from "../../pages/instructor/Exams/ExamDetails";
+import InstructorExamPageTemplate from "../../pages/pageTemplate/InstructorExamPageTemplate";
 
 const routes = [
   {
@@ -40,8 +42,18 @@ const routes = [
       },
       {
         path: "exams",
-        element: <InstructorExams />,
+        element: <InstructorExamPageTemplate />,
         instructorAuth: true,
+        children: [
+          {
+            index: true,
+            element: <InstructorExams />,
+          },
+          {
+            path: ":id",
+            element: <InstructorExamDetails />,
+          },
+        ],
       },
     ],
   },
