@@ -1,18 +1,20 @@
 import React from "react";
-import ListGroup from "react-bootstrap/ListGroup";
+import { Col, Row } from "react-bootstrap";
+import InstructorExamCard from "./ExamCard";
+
+import "./exam.css";
 
 function InstructorExamsList({ exams }) {
   return (
-    <>
+    <Row>
       {exams.map((exam) => (
-        <ListGroup key={exam.examId} horizontal>
-          <ListGroup.Item>Exam ID: {exam.examId}</ListGroup.Item>
-          <ListGroup.Item>Course ID: {exam.courseId}</ListGroup.Item>
-          <ListGroup.Item>Exam Name: {exam.examName}</ListGroup.Item>
-          <ListGroup.Item>{exam.examDate}</ListGroup.Item>
-        </ListGroup>
+        <>
+          <Col sm={4} key={exam.examId}>
+            <InstructorExamCard exam={exam} />
+          </Col>
+        </>
       ))}
-    </>
+    </Row>
   );
 }
 

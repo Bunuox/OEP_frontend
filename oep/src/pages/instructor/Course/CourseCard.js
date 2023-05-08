@@ -1,6 +1,7 @@
 import React from "react";
 import { Card, Col, Row } from "react-bootstrap";
 import { BsBookHalf } from "react-icons/bs";
+
 function CourseCard({ courses }) {
   return (
     <Row>
