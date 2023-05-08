@@ -4,7 +4,7 @@ import StudentLoginPage from "../../pages/login/StudentLoginPage";
 import RegisterPage from "../../pages/register/RegisterPage";
 import Student from "../../pages/student";
 import StudentMainPage from "../../pages/student/StudentMainPage";
-import StudentExamsPage from "../../pages/student/StudentExamsPage";
+import StudentExamsPage from "../../pages/student/Exams/StudentExamsPage";
 import Page404 from "../../pages/Page404";
 import StudentPrivateRoute from "./StudentPrivateRoute";
 import InstructorLoginPage from "../../pages/login/InstructorLoginPage";
