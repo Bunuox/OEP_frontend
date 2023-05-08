@@ -1,0 +1,12 @@
+.form-check-label {
+    color: black !important;
+}
+
+.question-card {
+    margin-bottom: 1rem;
+    height: fit-content;
+}
+
+Button {
+    margin: 10px;
+}
