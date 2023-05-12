@@ -20,27 +20,37 @@ function StudentExamCard({ exam }) {
   }
 
   function addMinutesToTime(timeString, minutesToAdd) {
-    const [hours, minutes] = timeString.split(":");
-    const dateObj = new Date();
-    dateObj.setHours(parseInt(hours, 10));
-    dateObj.setMinutes(parseInt(minutes, 10) + minutesToAdd);
-    return dateObj.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    const [hour, minute, second] = timeString.split(":").map(Number);
+    const totalSeconds = hour * 3600 + minute * 60 + second + minutesToAdd * 60;
+    const newHour = Math.floor(totalSeconds / 3600) % 24;
+    const newMinute = Math.floor((totalSeconds - newHour * 3600) / 60);
+    const newSecond = totalSeconds % 60;
+    const newTime = `${newHour
+      .toString()
+      .padStart(2, "0")}:${newMinute
+      .toString()
+      .padStart(2, "0")}:${newSecond.toString().padStart(2, "0")}`;
+    return newTime;
   }
 
-  function compareTime(firstTime, secondTime) {
-    const [firstHour, firstMinute] = firstTime.split(":");
-    const [secondHour, secondMinute] = secondTime.split(":");
+  function compareTime(currentTime, endTime) {
+    const [currentHour, currentMinute] = currentTime.split(":");
+    const [endHour, endMinute] = endTime.split(":");
+    const [startHour, startMinute] = exam.examTime.split(":");
 
-    const firstDate = new Date();
-    firstDate.setHours(firstHour, firstMinute, 0, 0);
+    const currentDate = new Date();
+    currentDate.setHours(currentHour, currentMinute, 0, 0);
 
-    const secondDate = new Date();
-    secondDate.setHours(secondHour, secondMinute, 0, 0);
+    const endDate = new Date();
+    endDate.setHours(endHour, endMinute, 0, 0);
 
-    return secondDate.getTime() <= firstDate.getTime();
+    const startDate = new Date();
+    startDate.setHours(startHour, startMinute, 0, 0);
+
+    return (
+      startDate.getTime() <= currentDate.getTime() &&
+      currentDate.getTime() <= endDate.getTime()
+    );
   }
 
   function isJoinAvaliable() {
@@ -48,7 +58,7 @@ function StudentExamCard({ exam }) {
     let examEndDate = addMinutesToTime(exam.examTime, duration);
     if (formatDate(date) === exam.examDate) {
       return compareTime(
-        `${date.getHours()}:${date.getMinutes()}`,
+        `${date.getHours()}:${date.getMinutes()}:00`,
         examEndDate
       );
     } else {

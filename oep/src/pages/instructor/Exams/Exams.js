@@ -76,6 +76,7 @@ function InstructorExams() {
             });
             if (res.status === 200) {
               console.log("Sınav başarıyla oluşturuldu.");
+              window.location.reload();
             } else {
               console.log(res);
             }
