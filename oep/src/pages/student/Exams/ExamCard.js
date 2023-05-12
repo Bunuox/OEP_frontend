@@ -47,7 +47,7 @@ function StudentExamCard({ exam }) {
     let duration = String(exam.examDuration);
     let examEndDate = addMinutesToTime(exam.examTime, duration);
     if (formatDate(date) === exam.examDate) {
-      return !compareTime(
+      return compareTime(
         `${date.getHours()}:${date.getMinutes()}`,
         examEndDate
       );
@@ -104,8 +104,8 @@ function StudentExamCard({ exam }) {
                 variant="danger"
                 className="d-flex flex-column justify-content-end"
                 onClick={() => {
-                  //let path = "/instructor/exams/" + exam.examId;
-                  //navigate(path);
+                  let path = "/student/exams/" + exam.examId;
+                  navigate(path);
                 }}
               >
                 Giriş Yap
