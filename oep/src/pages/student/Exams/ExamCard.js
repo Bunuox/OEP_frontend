@@ -114,7 +114,7 @@ function StudentExamCard({ exam }) {
                 variant="danger"
                 className="d-flex flex-column justify-content-end"
                 onClick={() => {
-                  let path = "/student/exams/" + exam.examId;
+                  let path = "/student/exams/faceIdentification/" + exam.examId;
                   navigate(path);
                 }}
               >
