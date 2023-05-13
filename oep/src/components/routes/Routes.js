@@ -4,7 +4,7 @@ import StudentLoginPage from "../../pages/login/StudentLoginPage";
 import RegisterPage from "../../pages/register/RegisterPage";
 import Student from "../../pages/student";
 import StudentMainPage from "../../pages/student/StudentMainPage";
-import StudentExamsPage from "../../pages/student/StudentExamsPage";
+import StudentExamsPage from "../../pages/student/Exams/StudentExamsPage";
 import Page404 from "../../pages/Page404";
 import StudentPrivateRoute from "./StudentPrivateRoute";
 import InstructorLoginPage from "../../pages/login/InstructorLoginPage";
@@ -16,6 +16,9 @@ import StudentCoursePage from "../../pages/student/Course/Courses";
 import InstructorExams from "../../pages/instructor/Exams/Exams";
 import InstructorExamDetails from "../../pages/instructor/Exams/ExamDetails";
 import InstructorExamPageTemplate from "../../pages/pageTemplate/InstructorExamPageTemplate";
+import StudentExamPageTemplate from "../../pages/pageTemplate/StudentExamPageTemplate";
+import StudentExamDetails from "../../pages/student/Exams/ExamDetails";
+import StudentFaceIdentificationPage from "../../pages/student/Exams/FaceIdentification/FaceIdentification";
 
 const routes = [
   {
@@ -74,8 +77,22 @@ const routes = [
       },
       {
         path: "exams",
-        element: <StudentExamsPage />,
+        element: <StudentExamPageTemplate />,
         auth: true,
+        children: [
+          {
+            index: true,
+            element: <StudentExamsPage />,
+          },
+          {
+            path: ":id",
+            element: <StudentExamDetails />,
+          },
+          {
+            path: "faceIdentification/:id",
+            element: <StudentFaceIdentificationPage />,
+          },
+        ],
       },
       {
         path: "courses",
