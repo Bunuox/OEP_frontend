@@ -18,6 +18,7 @@ import InstructorExamDetails from "../../pages/instructor/Exams/ExamDetails";
 import InstructorExamPageTemplate from "../../pages/pageTemplate/InstructorExamPageTemplate";
 import StudentExamPageTemplate from "../../pages/pageTemplate/StudentExamPageTemplate";
 import StudentExamDetails from "../../pages/student/Exams/ExamDetails";
+import StudentFaceIdentificationPage from "../../pages/student/Exams/FaceIdentification/FaceIdentification";
 
 const routes = [
   {
@@ -86,6 +87,10 @@ const routes = [
           {
             path: ":id",
             element: <StudentExamDetails />,
+          },
+          {
+            path: "faceIdentification/:id",
+            element: <StudentFaceIdentificationPage />,
           },
         ],
       },
