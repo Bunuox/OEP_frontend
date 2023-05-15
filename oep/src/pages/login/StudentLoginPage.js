@@ -31,6 +31,7 @@ function LoginPage() {
         setUser({
           studentId: resJson.student.studentId,
           firstName: resJson.student.firstName,
+          email: resJson.student.email,
         });
         navigate("/student");
       } else {
