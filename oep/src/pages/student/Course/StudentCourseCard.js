@@ -8,12 +8,7 @@ function StudentCourseCard({ courses }) {
     <Row>
       {courses.map((course) => (
         <Col sm={4} key={course.courseId}>
-          <Card
-            className="card"
-            style={{ width: "20rem" }}
-            bg={"light"}
-            text={"black"}
-          >
+          <Card className="card" style={{ width: "20rem" }} text={"black"}>
             <Card.Header
               as="h5"
               className="d-flex flex-column align-items-center"

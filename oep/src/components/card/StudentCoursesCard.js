@@ -48,7 +48,9 @@ function StudentCoursesCard() {
             {courses &&
               courses.map((course) => (
                 <>
-                  <ListGroup.Item>{course.courseName}</ListGroup.Item>
+                  <ListGroup.Item key={course.courseId}>
+                    {course.courseName}
+                  </ListGroup.Item>
                 </>
               ))}
           </ListGroup>

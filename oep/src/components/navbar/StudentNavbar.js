@@ -27,7 +27,6 @@ function StudentNavbar() {
             id="basic-nav-dropdown"
             className="justify-content-end"
           >
-            <p className="nav-p">Action</p>
             <p className="nav-p" onClick={handleLogout}>
               Çıkış Yap
             </p>
