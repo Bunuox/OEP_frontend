@@ -39,9 +39,10 @@ function InstructorExamCard({ exam }) {
             className="mb-2"
           >{`Sınav saati: ${exam.examTime}`}</Card.Subtitle>
         </Card.Body>
-        <Card.Footer className="text-right">
+        <Card.Footer className="text-right" style={{ height: "fit-content" }}>
           <Button
             className="d-flex flex-column justify-content-end"
+            style={{ fontSize: "12px" }}
             onClick={() => {
               let path = "/instructor/exams/" + exam.examId;
               navigate(path);

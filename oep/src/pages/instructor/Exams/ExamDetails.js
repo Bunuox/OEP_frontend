@@ -46,7 +46,6 @@ function InstructorExamDetails() {
         point: questionPoint,
       }),
     });
-    let resJson = await res.json();
     if (res.status === 200) {
       console.log("soru oluşturuldu");
       window.location.reload(false);
