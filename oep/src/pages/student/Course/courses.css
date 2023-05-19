@@ -3,11 +3,11 @@
     padding: 1px;
 }
 .card-header-id{
-    border: 1px solid whitesmoke;
+    border: 1px solid white;
     border-radius: .5rem;
     display: inline-block;
     font-size: medium;
-    color: whitesmoke;
+    color: white;
     margin-top: 3px;
     padding: .3rem;
 }

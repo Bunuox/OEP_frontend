@@ -2,7 +2,6 @@ import React from "react";
 import { Card, Container, ListGroup } from "react-bootstrap";
 
 function StudentInformationCard({ student }) {
-  console.log(student);
   return (
     <Container>
       <Card style={{ height: "fit-content" }}>

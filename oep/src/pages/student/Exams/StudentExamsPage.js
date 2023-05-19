@@ -7,6 +7,11 @@ function StudentExamsPage() {
   const [exams, setExams] = useState([]);
   const { user } = useContext(Context);
 
+  function filterExams(exams) {
+    const today = new Date().toISOString().split("T")[0];
+    return exams.filter((exam) => exam.examDate >= today);
+  }
+
   async function fetchExams() {
     let res = await fetch("http://localhost:8081/student/findStudentExams", {
       method: "POST",
@@ -19,7 +24,7 @@ function StudentExamsPage() {
     });
     let resJson = await res.json();
     if (res.status === 200) {
-      setExams(resJson);
+      setExams(filterExams(resJson));
     }
   }
 
