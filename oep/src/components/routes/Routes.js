@@ -3,7 +3,6 @@ import StudentPageTemplate from "../../pages/pageTemplate/StudentPageTemplate";
 import StudentLoginPage from "../../pages/login/StudentLoginPage";
 import RegisterPage from "../../pages/register/RegisterPage";
 import Student from "../../pages/student";
-import StudentMainPage from "../../pages/student/StudentMainPage";
 import StudentExamsPage from "../../pages/student/Exams/StudentExamsPage";
 import Page404 from "../../pages/Page404";
 import StudentPrivateRoute from "./StudentPrivateRoute";
@@ -19,6 +18,7 @@ import InstructorExamPageTemplate from "../../pages/pageTemplate/InstructorExamP
 import StudentExamPageTemplate from "../../pages/pageTemplate/StudentExamPageTemplate";
 import StudentExamDetails from "../../pages/student/Exams/ExamDetails";
 import StudentFaceIdentificationPage from "../../pages/student/Exams/FaceIdentification/FaceIdentification";
+import StudentExamResults from "../../pages/student/ExamResults";
 
 const routes = [
   {
@@ -71,8 +71,8 @@ const routes = [
         auth: true,
       },
       {
-        path: "main",
-        element: <StudentMainPage />,
+        path: "examResults",
+        element: <StudentExamResults />,
         auth: true,
       },
       {
