@@ -38,7 +38,7 @@ function StudentFaceIdentificationPage() {
       const _imageData = dataURItoBlob(_imageSrc);
 
       newImages.push(_imageData);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       if (newImages.length === 10) {
         const _formData = new FormData();
         newImages.forEach((img, index) => {
@@ -56,7 +56,8 @@ function StudentFaceIdentificationPage() {
           let resJson = await response.json();
           console.log(resJson);
           if (resJson.isThisTruePerson) {
-            window.location.href = "http://example.com";
+            console.log('kullanici dogrulandi.');
+            setIsFaceIdentified(true);
           } else {
             setIsLoadingMessageAvailable(false);
             console.log("reload atilmasi lazim");
