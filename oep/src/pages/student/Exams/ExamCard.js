@@ -28,8 +28,8 @@ function StudentExamCard({ exam }) {
     const newTime = `${newHour
       .toString()
       .padStart(2, "0")}:${newMinute
-      .toString()
-      .padStart(2, "0")}:${newSecond.toString().padStart(2, "0")}`;
+        .toString()
+        .padStart(2, "0")}:${newSecond.toString().padStart(2, "0")}`;
     return newTime;
   }
 
@@ -114,6 +114,7 @@ function StudentExamCard({ exam }) {
                 variant="danger"
                 className="d-flex flex-column justify-content-end"
                 onClick={() => {
+                  console.log('ExamCard.js', exam.examId)
                   let path = "/student/exams/faceIdentification/" + exam.examId;
                   navigate(path);
                 }}
