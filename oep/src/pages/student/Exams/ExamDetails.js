@@ -40,9 +40,12 @@ function StudentExamDetails() {
   }
 
   const saveScreenshot = async () => {
-    console.log(images.length)
+    console.log(images.length);
     while (images.length < 5) {
-      let _imageSrc = webcamRef && webcamRef.current ? webcamRef.current.getScreenshot() : null;
+      let _imageSrc =
+        webcamRef && webcamRef.current
+          ? webcamRef.current.getScreenshot()
+          : null;
       if (_imageSrc) {
         const _imageData = dataURItoBlob(_imageSrc);
         const _formData = new FormData();
@@ -51,7 +54,6 @@ function StudentExamDetails() {
         await new Promise((resolve) => setTimeout(resolve, 500));
 
         if (images.length === 5) {
-
           images.forEach((img, index) => {
             _formData.append("images", img, user.studentId);
           });
@@ -66,21 +68,19 @@ function StudentExamDetails() {
             );
             let resJson = await response.json();
             if (resJson.isCheating) {
-              window.alert('Kopya çekiyorsunuz, lütfen sınavınıza odaklanın!');
+              window.alert("Kopya çekiyorsunuz, lütfen sınavınıza odaklanın!");
             }
           } catch (error) {
             console.log("Upload error:", error);
           }
-
         } else {
-          console.log('webcamRef is null');
-          return
+          console.log("webcamRef is null");
+          return;
         }
       }
     }
     images = [];
   };
-
 
   const dataURItoBlob = (dataURI) => {
     const byteString = atob(dataURI.split(",")[1]);
@@ -98,12 +98,6 @@ function StudentExamDetails() {
     return new Blob([arrayBuffer], { type: mimeString });
   };
 
-  const webcamStyle = {
-    display: showWebcam ? "block" : "none",
-    position: "fixed",
-    right: 0,
-  };
-
   useEffect(() => {
     fetchQuestions();
   }, []);
@@ -111,14 +105,12 @@ function StudentExamDetails() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       saveScreenshot();
-    }, 1000);  // 1000 -> 1 saniye.
+    }, 1000); // 1000 -> 1 saniye.
 
     return () => {
       clearInterval(intervalId); // Bu, bileşenin temizlenmesi durumunda interval'ı durdurur.
     };
   }, []); // Bu boş dizi, bu useEffect'in sadece bir kez çalışmasını sağlar.
-
-
 
   return (
     <Container>
@@ -137,7 +129,6 @@ function StudentExamDetails() {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        style={webcamStyle}
         onUserMediaError={handleUserMediaError}
       />
     </Container>

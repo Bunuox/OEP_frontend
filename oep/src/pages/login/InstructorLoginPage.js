@@ -69,7 +69,6 @@ function InstructorLoginPage() {
         >
           Giriş
         </Button>
-        <a href="/register">Kayıt ol</a>
         <br></br>
         <p>
           Şifremi Unuttum

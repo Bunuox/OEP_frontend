@@ -28,6 +28,9 @@ function StudentOffcanvas() {
           <ListGroup.Item className="offcanvasItem">
             <a href="/instructor/exams">Sınavlarım</a>
           </ListGroup.Item>
+          <ListGroup.Item className="offcanvasItem">
+            <a href="/instructor/exams">Sınav Sonuçları</a>
+          </ListGroup.Item>
         </Offcanvas.Body>
       </Offcanvas>
     </>
