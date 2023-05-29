@@ -1,5 +1,5 @@
 import React, { useContext, useRef, useState } from "react";
-import { Container, Button, Col, Row } from "react-bootstrap";
+import { Container, Button, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Context } from "../../../../components/context/AuthContext";
@@ -13,6 +13,12 @@ function StudentFaceIdentificationPage() {
   const [isFaceIdentified, setIsFaceIdentified] = useState(false);
   const webcamRef = useRef(null);
   const [showWebcam, setShowWebcam] = useState(true);
+  const [images, setImages] = useState([]);
+  const newImages = [...images];
+  const [isButtonActive, setIsButtonActive] = useState(true);
+  const [isLoadingMessageAvaliable, setIsLoadingMessageAvailable] = useState(
+    ""
+  );
 
   const handleUserMediaError = (error) => {
     console.log("Webcam error:", error);
@@ -21,34 +27,46 @@ function StudentFaceIdentificationPage() {
   };
 
   const saveScreenshot = async () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    const imageData = dataURItoBlob(imageSrc);
+    if (newImages.length > 0) {
+      return;
+    }
 
-    const formData = new FormData();
-    formData.append("image", imageData, "screenshot.jpeg"); //burada id'yi yollamam lazim. sonuncu parametre olarak.
+    while (newImages.length < 10) {
+      setIsLoadingMessageAvailable(true);
+      console.log(newImages.length);
+      const _imageSrc = webcamRef.current.getScreenshot();
+      const _imageData = dataURItoBlob(_imageSrc);
 
-    try {
-      console.log("end-point öncesi");
-      //const response = await axios.post("http://localhost:3001/api/upload", formData); //express.js yerine java'ya yolla.
-      const response = await fetch(
-        "http://localhost:8081/student/faceIdentification",
-        {
-          method: "POST",
-          headers: {
-            studentId: user.studentId,
-          },
-          body: formData,
+      newImages.push(_imageData);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      if (newImages.length === 10) {
+        const _formData = new FormData();
+        newImages.forEach((img, index) => {
+          _formData.append("images", img, user.studentId);
+        });
+        setIsButtonActive(false);
+        try {
+          const response = await fetch(
+            "http://localhost:8081/student/faceIdentification",
+            {
+              method: "POST",
+              body: _formData,
+            }
+          );
+          let resJson = await response.json();
+          console.log(resJson);
+          if (resJson.isThisTruePerson) {
+            console.log('kullanici dogrulandi.');
+            setIsFaceIdentified(true);
+          } else {
+            setIsLoadingMessageAvailable(false);
+            console.log("reload atilmasi lazim");
+            window.location.reload();
+          }
+        } catch (error) {
+          console.log("Upload error:", error);
         }
-      );
-      if (response.ok) {
-        console.log("Image successfully sent to Java server");
-      } else {
-        console.log("Error sending image to Java server:", response.statusText);
       }
-    } catch (error) {
-      setIsFaceIdentified(true);
-      console.log("catche dustun essek.");
-      console.error("Upload error:", error);
     }
   };
 
@@ -87,6 +105,13 @@ function StudentFaceIdentificationPage() {
             <>
               <Col>
                 <p style={{ color: "red" }}>Lütfen kameraya yaklaşın</p>
+                {isLoadingMessageAvaliable ? (
+                  <>
+                    <p>Lütfen bekleyin...</p>
+                  </>
+                ) : (
+                  undefined
+                )}
               </Col>
               <Col>
                 <Button variant="secondary" onClick={saveScreenshot}>
