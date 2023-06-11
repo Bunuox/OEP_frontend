@@ -19,6 +19,11 @@ import StudentExamPageTemplate from "../../pages/pageTemplate/StudentExamPageTem
 import StudentExamDetails from "../../pages/student/Exams/ExamDetails";
 import StudentFaceIdentificationPage from "../../pages/student/Exams/FaceIdentification/FaceIdentification";
 import StudentExamResults from "../../pages/student/ExamResults";
+import InstructorExamResults from "../../pages/instructor/Results";
+import ExamStudentList from "../../pages/instructor/Results/StudentsList";
+import InstructorResultsPageTemplate from "../../pages/pageTemplate/InstructorResultsPageTemplate";
+import StudentAnswers from "../../pages/instructor/Results/StudentAnswers";
+import { Outlet } from "react-router-dom";
 
 const routes = [
   {
@@ -42,6 +47,31 @@ const routes = [
         path: "courses",
         element: <Courses />,
         instructorAuth: true,
+      },
+      {
+        path: "results",
+        element: <InstructorResultsPageTemplate />,
+        instructorAuth: true,
+        children: [
+          {
+            index: true,
+            element: <InstructorExamResults />,
+          },
+          {
+            path: ":courseId/:examid/studentList",
+            element: <Outlet />,
+            children: [
+              {
+                index: true,
+                element: <ExamStudentList />,
+              },
+              {
+                path: ":studentId",
+                element: <StudentAnswers />,
+              },
+            ],
+          },
+        ],
       },
       {
         path: "exams",
