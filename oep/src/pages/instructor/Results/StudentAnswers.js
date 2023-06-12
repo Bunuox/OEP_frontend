@@ -37,7 +37,6 @@ function StudentAnswers() {
     let resJson = await res.json();
     if (res.status === 200) {
       setQuestions(resJson);
-      console.log(resJson);
       let fetchAnswers = await fetch(
         "http://localhost:8081/studentAnswer/findStudentAnswersByQuestion",
         {

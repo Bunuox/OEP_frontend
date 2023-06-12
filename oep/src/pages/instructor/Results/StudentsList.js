@@ -5,6 +5,8 @@ import { Button, Col, Container, ListGroup, Row } from "react-bootstrap";
 function ExamStudentList() {
   const params = useParams();
   const [students, setStudents] = useState([]);
+  const [results, setResults] = useState([]);
+  const [mergedList, setMergedList] = useState([]);
   const navigate = useNavigate();
 
   async function findStudents() {
@@ -20,17 +22,47 @@ function ExamStudentList() {
     let resJson = await res.json();
     if (res.status === 200) {
       setStudents(resJson);
+      let examResultFetchRes = await fetch(
+        "http://localhost:8081/examResult/findExamResultsByExamId",
+        {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json",
+          },
+          body: JSON.stringify({
+            examId: params.examid,
+          }),
+        }
+      );
+      let examResultFetchResJson = await examResultFetchRes.json();
+      if (examResultFetchRes.status === 200) {
+        setResults(examResultFetchResJson);
+      }
     }
   }
-
   useEffect(() => {
     findStudents();
   }, []);
+
+  useEffect(() => {
+    const merged = students.map((student) => {
+      const result = results.find(
+        (result) => result.studentId === student.studentId
+      );
+      const grade = result ? result.grade : "Notlandırılmadı";
+      return {
+        ...student,
+        grade,
+      };
+    });
+    setMergedList(merged);
+  }, [students, results]);
+
   return (
     <Container>
       <ListGroup style={{ width: "80%" }}>
-        {students &&
-          students.map((student, index) => (
+        {mergedList.map &&
+          mergedList.map((student, index) => (
             <>
               <ListGroup.Item key={index}>
                 <Row>
@@ -38,7 +70,7 @@ function ExamStudentList() {
                     <h6>{student.firstName}</h6>
                   </Col>
                   <Col>
-                    <h6>Not: </h6>
+                    <h6>Not: {student.grade}</h6>
                   </Col>
                 </Row>
                 <Row>
