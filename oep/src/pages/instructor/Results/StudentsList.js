@@ -67,7 +67,9 @@ function ExamStudentList() {
               <ListGroup.Item key={index}>
                 <Row>
                   <Col>
-                    <h6>{student.firstName}</h6>
+                    <h6>
+                      {student.firstName} {student.lastName}
+                    </h6>
                   </Col>
                   <Col>
                     <h6>Not: {student.grade}</h6>
